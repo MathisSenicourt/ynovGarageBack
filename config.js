@@ -4,7 +4,7 @@ const config = {
         user: "root",
         // password: "root",
         password: "admin",
-        database: "coc",
+        database: "ynovGarage",
     },
     listPerPage: 10,
 };

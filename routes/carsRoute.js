@@ -14,6 +14,9 @@ router.post('/arrival', carsController.declareArrival);
 // Route pour déclarer une vente de voiture
 router.post('/sale', carsController.declareSale);
 
+// Route pour obtenir toutes les places disponibles
+router.get('/disponibles', carsController.getAvailablePlaces);
+
 // Route pour prendre rendez-vous pour la réparation d'une voiture
 router.post('/appointment', carsController.bookAppointment);
 

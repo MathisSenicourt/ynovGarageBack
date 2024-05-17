@@ -70,6 +70,28 @@ exports.declareSale = async (req, res) => {
     }
 };
 
+// Fonction pour obtenir toutes les places disponibles
+exports.getAvailablePlaces = async (req, res) => {
+    const query = `
+        SELECT e.id, e.numero, e.zone
+        FROM emplacements e
+        LEFT JOIN voitures v ON e.id = v.emplacement_id
+        WHERE v.id IS NULL
+    `;
+
+    try {
+        db.query(query, (error, results) => {
+            if (error) {
+                return res.status(500).json({ message: error.message });
+            }
+            res.json(results);
+        });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+
 // Fonction pour prendre rendez-vous pour la réparation d'une voiture
 exports.bookAppointment = async (req, res) => {
     const { voiture_id, client_id, date, type } = req.body;
