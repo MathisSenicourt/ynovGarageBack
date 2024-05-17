@@ -23,9 +23,9 @@ exports.getAllCars = async (req, res) => {
     }
 
     try {
-        db.query(query, params, (error, results) => {
+        await db.query(query, params, (error, results) => {
             if (error) {
-                return res.status(500).json({ message: error.message });
+                return res.status(500).json({message: error.message});
             }
             res.json(results);
         });
