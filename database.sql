@@ -40,7 +40,7 @@ CREATE TABLE voitures (
                           annee INT CHECK (annee > 1900) NOT NULL,
                           prix DECIMAL(10, 2) NOT NULL,
                           kilometrage INT NOT NULL,
-                          statut ENUM('disponible', 'attente reservation', 'reserve', 'vendu') NOT NULL,
+                          statut ENUM('disponible', 'reserve', 'vendu') NOT NULL,
                           emplacement_id INT,
                           CONSTRAINT fk_emplacement FOREIGN KEY (emplacement_id) REFERENCES emplacements(id)
 );
