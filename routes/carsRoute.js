@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const carsController = require('../controllers/carsController');
 
-// Route pour lister toutes les voitures du parc
+// Route pour obtenir toutes les voitures, avec possibilité de filtrer par statut
 router.get('/', carsController.getAllCars);
 
 // Route pour obtenir les détails d'une voiture spécifique

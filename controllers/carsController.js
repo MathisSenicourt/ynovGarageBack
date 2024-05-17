@@ -2,13 +2,30 @@ const db = require('services/db');
 
 // Fonction pour obtenir toutes les voitures du parc
 exports.getAllCars = async (req, res) => {
+    const { statut } = req.query;
+
+    let query = 'SELECT * FROM voitures';
+    let params = [];
+
+    if (statut) {
+        const statuts = statut.split(',');
+        const placeholders = statuts.map(() => '?').join(',');
+        query += ` WHERE statut IN (${placeholders})`;
+        params = statuts;
+    }
+
     try {
-        const cars = await db.query('SELECT * FROM voitures');
-        res.json(cars);
+        await db.query(query, params, (error, results) => {
+            if (error) {
+                return res.status(500).json({message: error.message});
+            }
+            res.json(results);
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 // Fonction pour obtenir les détails d'une voiture spécifique en fonction de son identifiant
 exports.getCarById = async (req, res) => {

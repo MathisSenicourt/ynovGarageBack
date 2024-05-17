@@ -40,7 +40,7 @@ CREATE TABLE voitures (
                           annee INT CHECK (annee > 1900) NOT NULL,
                           prix DECIMAL(10, 2) NOT NULL,
                           kilometrage INT NOT NULL,
-                          statut ENUM('disponible', 'reserve', 'vendu') NOT NULL,
+                          statut ENUM('disponible', 'attente reservation', 'reserve', 'vendu') NOT NULL,
                           emplacement_id INT,
                           CONSTRAINT fk_emplacement FOREIGN KEY (emplacement_id) REFERENCES emplacements(id)
 );
@@ -85,6 +85,7 @@ CREATE TABLE ateliers (
 
 -- Ajouter 20 emplacements de concessionnaire
 INSERT INTO emplacements (numero, zone) VALUES
+                                            ('none', 'concessionnaire'),
                                             ('Conc001', 'concessionnaire'),
                                             ('Conc002', 'concessionnaire'),
                                             ('Conc003', 'concessionnaire'),
@@ -113,3 +114,28 @@ INSERT INTO emplacements (numero, zone) VALUES
                                             ('Atelier003', 'atelier'),
                                             ('Atelier004', 'atelier'),
                                             ('Atelier005', 'atelier');
+
+-- Ajout de voitures fictives dans la table 'voitures'
+INSERT INTO voitures (marque, modele, annee, prix, kilometrage, statut, emplacement_id)
+VALUES
+    ('Toyota', 'Corolla', 2020, 20000.00, 15000, 'disponible', 1),
+    ('Ford', 'Mustang', 2018, 30000.00, 30000, 'disponible', 2),
+    ('Honda', 'Civic', 2021, 25000.00, 10000, 'disponible', 3),
+    ('Chevrolet', 'Camaro', 2019, 35000.00, 25000, 'disponible', 4),
+    ('BMW', '3 Series', 2022, 45000.00, 5000, 'disponible', 5),
+    ('Mercedes', 'C-Class', 2020, 40000.00, 20000, 'disponible', 6),
+    ('Audi', 'A4', 2019, 38000.00, 22000, 'disponible', 7),
+    ('Tesla', 'Model 3', 2021, 50000.00, 12000, 'disponible', 8),
+    ('Nissan', 'Altima', 2018, 18000.00, 35000, 'disponible', 9),
+    ('Hyundai', 'Elantra', 2020, 19000.00, 17000, 'disponible', 10),
+    ('Volkswagen', 'Golf', 2021, 23000.00, 15000, 'disponible', 11),
+    ('Kia', 'Optima', 2019, 21000.00, 27000, 'disponible', 12),
+    ('Subaru', 'Impreza', 2022, 24000.00, 8000, 'disponible', 13),
+    ('Mazda', 'Mazda3', 2020, 22000.00, 19000, 'disponible', 14),
+    ('Dodge', 'Charger', 2018, 29000.00, 32000, 'disponible', 15),
+    ('Jeep', 'Wrangler', 2021, 40000.00, 10000, 'disponible', 16),
+    ('Lexus', 'IS', 2020, 42000.00, 14000, 'disponible', 17),
+    ('Infiniti', 'Q50', 2019, 37000.00, 25000, 'disponible', 18),
+    ('Acura', 'TLX', 2021, 43000.00, 9000, 'disponible', 19),
+    ('Cadillac', 'ATS', 2018, 35000.00, 28000, 'disponible', 20);
+
