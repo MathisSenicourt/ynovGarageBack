@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+const cors = require('cors');
+
 const carsRoute = require('./routes/carsRoute');
 
 var app = express();
@@ -17,6 +19,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Utilisez CORS comme middleware
+app.use(cors({
+  origin: '*', // Mettez ici l'URL de votre application Angular
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+}));
 
 app.use('/cars', carsRoute);
 
