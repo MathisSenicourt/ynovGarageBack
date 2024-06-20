@@ -61,7 +61,8 @@ exports.getAvailablePlaces = async () => {
         SELECT e.id, e.numero, e.zone
         FROM emplacements e
                  LEFT JOIN voitures v ON e.id = v.emplacement_id
-        WHERE v.id IS NULL AND e.id != 1
+        WHERE v.id IS NULL
+          AND e.id != 1
     `;
 
     return await db.query(query);
@@ -69,7 +70,9 @@ exports.getAvailablePlaces = async () => {
 
 // Fonction pour prendre rendez-vous pour la réparation d'une voiture
 exports.bookAppointment = async (appointment) => {
-    const {voiture_id, client_id, date, type} = appointment;
-    return await db.query('INSERT INTO rendez_vous (voiture_id, client_id, date, type) VALUES (?, ?, ?, ?)',
-        [voiture_id, 1, date, type]);
+    // const {voiture_id, client_id, date, type} = appointment;
+    const {voiture_id, type} = appointment;
+    console.log(appointment);
+    return await db.query('INSERT INTO rendez_vous (voiture_id, client_id, date, type) VALUES (?, 1, now(), ?)',
+        [voiture_id, type]);
 };

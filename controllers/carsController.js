@@ -58,6 +58,7 @@ exports.getAvailablePlaces = async (req, res) => {
 
 // Fonction pour prendre rendez-vous pour la réparation d'une voiture
 exports.bookAppointment = async (req, res) => {
+    console.log("toto");
     try {
         const results = await carsService.bookAppointment(req.body);
         res.json({ message: 'Rendez-vous pris avec succès', newAppointment: results });
