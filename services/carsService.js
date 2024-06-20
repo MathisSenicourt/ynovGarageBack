@@ -52,7 +52,7 @@ exports.declareArrival = async (car) => {
 exports.declareSale = async (sale) => {
     const {voiture_id, commercial_id, client_id, date} = sale;
     return await db.query('INSERT INTO ventes (voiture_id, commercial_id, client_id, date) VALUES (?, ?, ?, ?)',
-        [voiture_id, commercial_id, client_id, date]);
+        [voiture_id, 1, 1, date]);
 };
 
 // Fonction pour obtenir toutes les places disponibles
@@ -61,7 +61,7 @@ exports.getAvailablePlaces = async () => {
         SELECT e.id, e.numero, e.zone
         FROM emplacements e
                  LEFT JOIN voitures v ON e.id = v.emplacement_id
-        WHERE v.id IS NULL
+        WHERE v.id IS NULL AND e.id != 1
     `;
 
     return await db.query(query);
@@ -71,5 +71,5 @@ exports.getAvailablePlaces = async () => {
 exports.bookAppointment = async (appointment) => {
     const {voiture_id, client_id, date, type} = appointment;
     return await db.query('INSERT INTO rendez_vous (voiture_id, client_id, date, type) VALUES (?, ?, ?, ?)',
-        [voiture_id, client_id, date, type]);
+        [voiture_id, 1, date, type]);
 };
